@@ -1,0 +1,41 @@
+<style>
+h1 {
+  /*font-family: 'verdana', cursive;*/
+  font-weight: 200;
+  line-height: 1.1;
+  font-size:1.3em;
+  color: #f00;}
+p {
+  background-color: #fff;
+}
+td {
+  align: center
+}
+</style>
+
+---
+output:
+  html_document
+  <!-- pdf_document -->
+  
+---
+
+<div class="row">
+<div class="col-sm-6"> `r params$header_marine` <p> <b> Le `r params$date_fac` </b> </p></div>
+<div class="col-sm-6"> `r params$header_salle` </div>
+</div>
+```{r eval=FALSE, include=FALSE}
+install.packages("webshot")
+webshot::install_phantomjs()
+```
+
+```{r echo=FALSE}
+library(DT)
+tableau=params$tableau
+# tableau <- cbind(tableau,)
+# print(names(tableau))
+datatable(tableau, options = list(dom = 't',columnDefs = list(list(className = 'dt-center', targets = "_all"))),selection = list(target = 'row'),rownames = FALSE, escape = FALSE,colnames = c("jour","date","Nombre d'heures","Montant TTC"))
+
+```
+
+
