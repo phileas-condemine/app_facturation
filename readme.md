@@ -1,0 +1,1 @@
+Pour éviter de devoir écrire en latex et installer miktex, on travaille en html.
