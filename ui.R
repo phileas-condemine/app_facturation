@@ -38,8 +38,8 @@ bootstrapPage(
            tags$div(class="col-sm-6",htmlOutput("header_marine")),
            tags$div(class="col-sm-6",htmlOutput("header_salle"))),
   tags$div(dataTableOutput("table_jours_rem")),
-  tags$div(downloadButton("report"))
-  # tags$div(actionButton("report", "export_pdf"))
+  # tags$div(actionButton("create", "export_pdf")),
+  tags$div(downloadButton(outputId="report",label="exporter"))
   
 )
 

@@ -69,9 +69,27 @@ function(input,output,session){
   })
   
   filenm=function(){paste0("facture",input$mois_annee,input$salle,".html")}
+  
+  # observeEvent(input$create,{
+  #   n_env=new.env(parent = globalenv())
+  #   params <- list(header_marine=infos()[[2]],
+  #                  header_salle=infos()[[3]],
+  #                  date_fac=as.character(input$date_facture),tableau=tableau_reac())
+  #   assign("params",params,envir = .GlobalEnv)
+  #   # assign(x = "params",value = params,envir = n_env)
+  # 
+  #   out <- rmarkdown::render(input = 'facture.Rmd',
+  #                            output_file = filenm(),#filenm(),
+  #                            output_format = "all",
+  #                            params = params,
+  #                            envir = parent.frame())
+  #   out
+  # })
+  
   output$report <- downloadHandler(
-    filename = filenm,
+    filename = filenm,contentType = "html",
     content = function(file) {
+      print(filenm())
       # src <- normalizePath('facture.Rmd')
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
@@ -80,7 +98,7 @@ function(input,output,session){
       # owd <- setwd(tempdir())
       # on.exit(setwd(owd))
       # file.copy(src, 'facture.Rmd', overwrite = TRUE)
-      n_env=new.env(parent = globalenv())
+      # n_env=new.env(parent = globalenv())
       params <- list(header_marine=infos()[[2]],
                  header_salle=infos()[[3]],
                  date_fac=as.character(input$date_facture),tableau=tableau_reac())
@@ -88,10 +106,11 @@ function(input,output,session){
       # assign(x = "params",value = params,envir = n_env)
       
       out <- rmarkdown::render(input = 'facture.Rmd', 
-                               output_file = filenm(),
+                               output_file = file,#filenm(),
                                output_format = "all",
                                params = params,
                                envir = parent.frame())
+      out
       # file.rename(out, file)
     }
   )
